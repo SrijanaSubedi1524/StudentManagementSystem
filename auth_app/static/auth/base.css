@@ -1,0 +1,389 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #1e3c72, #2a5298, #4a6741, #2c5530);
+            background-size: 400% 400%;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .shape1 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50% 20% 50% 20%;
+            top: 10%;
+            left: 10%;
+        }
+
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            border-radius: 20% 50% 20% 50%;
+            top: 60%;
+            right: 15%;
+        }
+
+        .shape3 {
+            width: 100px;
+            height: 100px;
+            border-radius: 30% 70% 70% 30%;
+            bottom: 20%;
+            left: 20%;
+        }
+
+        .shape4 {
+            width: 120px;
+            height: 120px;
+            border-radius: 70% 30% 30% 70%;
+            top: 30%;
+            right: 40%;
+        }
+
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 0;
+            box-shadow: 
+                0 25px 45px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            max-width: 450px;
+            width: 100%;
+            overflow: hidden;
+            opacity: 1;
+        }
+
+        .glass-header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+            padding: 40px 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-section {
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 15px 40px rgba(30, 60, 114, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        .logo-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-book {
+            font-size: 28px;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .logo-laurel {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        @keyframes logoShine {
+            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .brand-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .brand-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .mode-selector {
+            display: flex;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            padding: 5px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .mode-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 8px;
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #2a5298, #1e3c72);
+            color: white;
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .mode-btn:hover:not(.active) {
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-section {
+            padding: 0 40px 40px;
+        }
+
+        .floating-input {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .floating-input input {
+            width: 100%;
+            padding: 18px 50px 18px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .floating-input input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .floating-input input:focus {
+            outline: none;
+            border-color: #2a5298;
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 20px rgba(42, 82, 152, 0.3);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .floating-input input:focus + .input-icon {
+            color: #87ceeb;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .magic-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .magic-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .magic-button:hover {
+            box-shadow: 0 15px 35px rgba(30, 60, 114, 0.5);
+            background: linear-gradient(135deg, #2a5298, #1e3c72);
+        }
+
+        .magic-button:hover::before {
+            left: 100%;
+        }
+
+        .register-section {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .register-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .register-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            padding: 12px 25px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .register-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .particle-system {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .glass-card {
+                margin: 10px;
+                max-width: none;
+            }
+
+            .glass-header {
+                padding: 30px 20px 20px;
+            }
+
+            .form-section {
+                padding: 0 20px 30px;
+            }
+
+            .brand-title {
+                font-size: 1.8rem;
+            }
+
+            .mode-btn {
+                font-size: 0.75rem;
+                padding: 10px 5px;
+            }
+
+            .shape {
+                display: none;
+            }
+
+            .logo-icon {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* Loading animation */
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }

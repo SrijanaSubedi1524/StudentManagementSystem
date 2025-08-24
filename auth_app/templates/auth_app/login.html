@@ -1,0 +1,173 @@
+{% extends 'auth/base.html' %}
+{% load static %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+
+    <!-- Floating background shapes -->
+    <div class="floating-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+    </div>
+
+    <!-- Particle system -->
+    <div class="particle-system" id="particleSystem"></div>
+
+    <div class="login-container">
+        <div class="glass-card">
+            <div class="glass-header">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <div class="logo-content">
+                            <i class="fas fa-book-open logo-book"></i>
+                            <i class="fas fa-award logo-laurel"></i>
+                        </div>
+                    </div>
+                    <h1 class="brand-title">EduManage</h1>
+                    <p class="brand-subtitle">Excellence in Education Management</p>
+                </div>
+
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="student">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Student</span>
+                    </button>
+                    <button class="mode-btn" data-mode="teacher">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Teacher</span>
+                    </button>
+                    <button class="mode-btn" data-mode="admin">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Admin</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <!-- Student Form -->
+                <form id="studentForm" class="login-form active">
+                    <div class="floating-input">
+                        <input type="text" name="student_id" placeholder="Student ID" required>
+                        <i class="input-icon fas fa-id-card"></i>
+                    </div>
+                    <div class="floating-input">
+                        <input type="password" name="password" placeholder="Password" required>
+                        <i class="input-icon fas fa-lock"></i>
+                    </div>
+                    <button type="submit" class="magic-button">
+                        <span class="btn-text">Access Portal</span>
+                        <div class="loading-spinner"></div>
+                    </button>
+                </form>
+
+                <!-- Teacher Form -->
+                <form id="teacherForm" class="login-form" style="display: none;">
+                    <div class="floating-input">
+                        <input type="text" name="teacher_id" placeholder="Teacher ID" required>
+                        <i class="input-icon fas fa-id-badge"></i>
+                    </div>
+                    <div class="floating-input">
+                        <input type="password" name="password" placeholder="Password" required>
+                        <i class="input-icon fas fa-key"></i>
+                    </div>
+                    <button type="submit" class="magic-button">
+                        <span class="btn-text">Enter Dashboard</span>
+                        <div class="loading-spinner"></div>
+                    </button>
+                </form>
+
+                <!-- Admin Form -->
+                <form id="adminForm" class="login-form" style="display: none;">
+                    <div class="floating-input">
+                        <input type="text" name="admin_username" placeholder="Admin Username" required>
+                        <i class="input-icon fas fa-shield-alt"></i>
+                    </div>
+                    <div class="floating-input">
+                        <input type="password" name="password" placeholder="Password" required>
+                        <i class="input-icon fas fa-unlock-alt"></i>
+                    </div>
+                    <button type="submit" class="magic-button">
+                        <span class="btn-text">Admin Access</span>
+                        <div class="loading-spinner"></div>
+                    </button>
+                </form>
+
+                <div class="register-section">
+                    <p class="register-text">Don't have an account?</p>
+                    <a href="{% url 'register' %}" class="register-button">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Register Now</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mode switching functionality
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const mode = btn.dataset.mode;
+                
+                // Update active button
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show corresponding form
+                document.querySelectorAll('.login-form').forEach(form => {
+                    form.style.display = 'none';
+                });
+                document.getElementById(mode + 'Form').style.display = 'block';
+                
+                // Update register section visibility
+                const registerSection = document.querySelector('.register-section');
+                if (mode === 'admin') {
+                    registerSection.style.display = 'none';
+                } else {
+                    registerSection.style.display = 'block';
+                }
+            });
+        });
+
+        // Form submission with loading animation
+        document.querySelectorAll('.login-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const button = this.querySelector('.magic-button');
+                const btnText = button.querySelector('.btn-text');
+                const spinner = button.querySelector('.loading-spinner');
+                
+                // Show loading state
+                btnText.style.opacity = '0';
+                spinner.style.display = 'block';
+                button.style.pointerEvents = 'none';
+                
+                // Simulate API call
+                setTimeout(() => {
+                    btnText.style.opacity = '1';
+                    spinner.style.display = 'none';
+                    button.style.pointerEvents = 'auto';
+                    
+                    // Here you would typically redirect or show success message
+                    console.log('Login attempt for:', this.id);
+                }, 2000);
+            });
+        });
+
+        // Input focus effects
+        document.querySelectorAll('.floating-input input').forEach(input => {
+            input.addEventListener('focus', function() {
+                // Focus styling handled by CSS
+            });
+            
+            input.addEventListener('blur', function() {
+                // Blur styling handled by CSS
+            });
+        });
+    </script>
+
+{% endblock content %}

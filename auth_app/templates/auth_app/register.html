@@ -1,0 +1,831 @@
+{% extends 'auth/base.html' %}
+{% load static %}
+
+{% block title %}Register - EduManage{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduManage - Register</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #1e3c72, #2a5298, #4a6741, #2c5530);
+            background-size: 400% 400%;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .register-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .shape1 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50% 20% 50% 20%;
+            top: 5%;
+            left: 5%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            border-radius: 20% 50% 20% 50%;
+            top: 70%;
+            right: 10%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .shape3 {
+            width: 120px;
+            height: 120px;
+            border-radius: 30% 70% 70% 30%;
+            bottom: 10%;
+            left: 15%;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 0;
+            box-shadow: 
+                0 25px 45px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            opacity: 1;
+        }
+
+        .glass-header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+            padding: 30px 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-section {
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 15px 40px rgba(30, 60, 114, 0.4);
+        }
+
+        .logo-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-book {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .logo-laurel {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .brand-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .brand-subtitle {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+
+        .role-selector {
+            display: flex;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            padding: 5px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .role-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 8px;
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .role-btn.active {
+            background: linear-gradient(135deg, #2a5298, #1e3c72);
+            color: white;
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .role-btn:hover:not(.active) {
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-section {
+            padding: 0 40px 40px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .form-section::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .form-section::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .form-section::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .form-section::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .floating-input {
+            position: relative;
+        }
+
+        .floating-input input,
+        .floating-input select,
+        .floating-input textarea {
+            width: 100%;
+            padding: 16px 45px 16px 18px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: white;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .floating-input textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .floating-input input::placeholder,
+        .floating-input textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .floating-input select {
+            cursor: pointer;
+        }
+
+        .floating-input select option {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .floating-input input:focus,
+        .floating-input select:focus,
+        .floating-input textarea:focus {
+            outline: none;
+            border-color: #2a5298;
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 20px rgba(42, 82, 152, 0.3);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .floating-input input:focus + .input-icon,
+        .floating-input select:focus + .input-icon,
+        .floating-input textarea:focus + .input-icon {
+            color: #87ceeb;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .form-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-transform: capitalize;
+        }
+
+        .required {
+            color: #ff6b6b;
+        }
+
+        .magic-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 0;
+        }
+
+        .magic-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .magic-button:hover {
+            box-shadow: 0 15px 35px rgba(30, 60, 114, 0.5);
+            background: linear-gradient(135deg, #2a5298, #1e3c72);
+            transform: translateY(-2px);
+        }
+
+        .magic-button:hover::before {
+            left: 100%;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #87ceeb;
+            text-shadow: 0 0 10px rgba(135, 206, 235, 0.5);
+        }
+
+        .error-message {
+            background: rgba(255, 107, 107, 0.15);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            color: #ff6b6b;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .success-message {
+            background: rgba(72, 187, 120, 0.15);
+            border: 1px solid rgba(72, 187, 120, 0.3);
+            color: #48bb78;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        /* Loading animation */
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .glass-card {
+                margin: 10px;
+                max-width: none;
+            }
+
+            .glass-header {
+                padding: 25px 20px 15px;
+            }
+
+            .form-section {
+                padding: 0 20px 30px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .brand-title {
+                font-size: 1.6rem;
+            }
+
+            .role-btn {
+                font-size: 0.75rem;
+                padding: 10px 5px;
+            }
+
+            .shape {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating background shapes -->
+    <div class="floating-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
+
+    <div class="register-container">
+        <div class="glass-card">
+            <div class="glass-header">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <div class="logo-content">
+                            <i class="fas fa-book-open logo-book"></i>
+                            <i class="fas fa-award logo-laurel"></i>
+                        </div>
+                    </div>
+                    <h1 class="brand-title">Join EduManage</h1>
+                    <p class="brand-subtitle">Create your account to get started</p>
+                </div>
+
+                <div class="role-selector">
+                    <button class="role-btn active" data-role="student">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Student</span>
+                    </button>
+                    <button class="role-btn" data-role="teacher">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Teacher</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <!-- Student Registration Form -->
+                <form id="studentForm" class="register-form active">
+                    <div id="studentErrors" class="error-message" style="display: none;"></div>
+                    <div id="studentSuccess" class="success-message" style="display: none;"></div>
+                    
+                    <!-- Basic Information -->
+                    <div class="form-row">
+                        <div class="floating-input">
+                            <label class="form-label">Student ID <span class="required">*</span></label>
+                            <input type="text" name="student_id" placeholder="Enter Student ID" required>
+                            <i class="input-icon fas fa-id-card"></i>
+                        </div>
+                        <div class="floating-input">
+                            <label class="form-label">Current Class <span class="required">*</span></label>
+                            <select name="current_class" required>
+                                <option value="">Select Class</option>
+                                <option value="11">Class 11</option>
+                                <option value="12">Class 12</option>
+                            </select>
+                            <i class="input-icon fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="floating-input">
+                            <label class="form-label">First Name <span class="required">*</span></label>
+                            <input type="text" name="first_name" placeholder="Enter First Name" required>
+                            <i class="input-icon fas fa-user"></i>
+                        </div>
+                        <div class="floating-input">
+                            <label class="form-label">Last Name <span class="required">*</span></label>
+                            <input type="text" name="last_name" placeholder="Enter Last Name" required>
+                            <i class="input-icon fas fa-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="floating-input">
+                            <label class="form-label">Date of Birth <span class="required">*</span></label>
+                            <input type="date" name="date_of_birth" required>
+                            <i class="input-icon fas fa-calendar"></i>
+                        </div>
+                        <div class="floating-input">
+                            <label class="form-label">Gender <span class="required">*</span></label>
+                            <select name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Other</option>
+                            </select>
+                            <i class="input-icon fas fa-venus-mars"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="floating-input">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" placeholder="Enter Email Address">
+                            <i class="input-icon fas fa-envelope"></i>
+                        </div>
+                        <div class="floating-input">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" name="phone" placeholder="Enter Phone Number">
+                            <i class="input-icon fas fa-phone"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row single">
+                        <div class="floating-input">
+                            <label class="form-label">Address <span class="required">*</span></label>
+                            <textarea name="address" placeholder="Enter Complete Address" required></textarea>
+                            <i class="input-icon fas fa-home"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="floating-input">
+                            <label class="form-label">Password <span class="required">*</span></label>
+                            <input type="password" name="password" placeholder="Create Password" required>
+                            <i class="input-icon fas fa-lock"></i>
+                        </div>
+                        <div class="floating-input">
+                            <label class="form-label">Confirm Password <span class="required">*</span></label>
+                            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                            <i class="input-icon fas fa-lock-open"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="magic-button">
+                        <span class="btn-text">Register as Student</span>
+                        <div class="loading-spinner"></div>
+                    </button>
+                </form>
+
+                <!-- Teacher Registration Form -->
+                <form id="teacherForm" class="register-form" style="display: none;">
+                    <div id="teacherErrors" class="error-message" style="display: none;"></div>
+                    <div id="teacherSuccess" class="success-message" style="display: none;"></div>
+                    
+                    <!-- Basic Information -->
+                    <div class="form-row">
+                        <div class="floating-input">
+                            <label class="form-label">Teacher ID <span class="required">*</span></label>
+                            <input type="text" name="teacher_id" placeholder="Enter Teacher ID" required>
+                            <i class="input-icon fas fa-id-badge"></i>
+                        </div>
+                        <div class="floating-input">
+                            <label class="form-label">Department <span class="required">*</span></label>
+                            <input type="text" name="department" placeholder="Enter Department" required>
+                            <i class="input-icon fas fa-building"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="floating-input">
+                            <label class="form-label">First Name <span class="required">*</span></label>
+                            <input type="text" name="first_name" placeholder="Enter First Name" required>
+                            <i class="input-icon fas fa-user"></i>
+                        </div>
+                        <div class="floating-input">
+                            <label class="form-label">Last Name <span class="required">*</span></label>
+                            <input type="text" name="last_name" placeholder="Enter Last Name" required>
+                            <i class="input-icon fas fa-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="floating-input">
+                            <label class="form-label">Date of Birth <span class="required">*</span></label>
+                            <input type="date" name="date_of_birth" required>
+                            <i class="input-icon fas fa-calendar"></i>
+                        </div>
+                        <div class="floating-input">
+                            <label class="form-label">Gender <span class="required">*</span></label>
+                            <select name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Other</option>
+                            </select>
+                            <i class="input-icon fas fa-venus-mars"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="floating-input">
+                            <label class="form-label">Email <span class="required">*</span></label>
+                            <input type="email" name="email" placeholder="Enter Email Address" required>
+                            <i class="input-icon fas fa-envelope"></i>
+                        </div>
+                        <div class="floating-input">
+                            <label class="form-label">Phone <span class="required">*</span></label>
+                            <input type="tel" name="phone" placeholder="Enter Phone Number" required>
+                            <i class="input-icon fas fa-phone"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row single">
+                        <div class="floating-input">
+                            <label class="form-label">Address <span class="required">*</span></label>
+                            <textarea name="address" placeholder="Enter Complete Address" required></textarea>
+                            <i class="input-icon fas fa-home"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="floating-input">
+                            <label class="form-label">Password <span class="required">*</span></label>
+                            <input type="password" name="password" placeholder="Create Password" required>
+                            <i class="input-icon fas fa-lock"></i>
+                        </div>
+                        <div class="floating-input">
+                            <label class="form-label">Confirm Password <span class="required">*</span></label>
+                            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                            <i class="input-icon fas fa-lock-open"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="magic-button">
+                        <span class="btn-text">Register as Teacher</span>
+                        <div class="loading-spinner"></div>
+                    </button>
+                </form>
+
+                <div class="login-link">
+                    <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Role switching functionality
+        document.querySelectorAll('.role-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const role = btn.dataset.role;
+                
+                // Update active button
+                document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show corresponding form
+                document.querySelectorAll('.register-form').forEach(form => {
+                    form.style.display = 'none';
+                });
+                document.getElementById(role + 'Form').style.display = 'block';
+            });
+        });
+
+        // Form validation
+        function validateForm(form) {
+            const formData = new FormData(form);
+            const errors = [];
+
+            // Check password confirmation
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirm_password');
+            
+            if (password !== confirmPassword) {
+                errors.push('Passwords do not match');
+            }
+
+            if (password.length < 6) {
+                errors.push('Password must be at least 6 characters long');
+            }
+
+            // Check required fields
+            const requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    const label = field.closest('.floating-input').querySelector('.form-label').textContent.replace(' *', '');
+                    errors.push(`${label} is required`);
+                }
+            });
+
+            // Email validation (if provided)
+            const email = formData.get('email');
+            if (email && !isValidEmail(email)) {
+                errors.push('Please enter a valid email address');
+            }
+
+            // Phone validation (if provided)
+            const phone = formData.get('phone');
+            if (phone && !isValidPhone(phone)) {
+                errors.push('Please enter a valid phone number');
+            }
+
+            return errors;
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function isValidPhone(phone) {
+            const phoneRegex = /^[\d\s\-\+\(\)]{10,15}$/;
+            return phoneRegex.test(phone);
+        }
+
+        function showErrors(formId, errors) {
+            const errorDiv = document.getElementById(formId + 'Errors');
+            const successDiv = document.getElementById(formId + 'Success');
+            
+            successDiv.style.display = 'none';
+            
+            if (errors.length > 0) {
+                errorDiv.innerHTML = errors.map(error => `• ${error}`).join('<br>');
+                errorDiv.style.display = 'block';
+                return false;
+            } else {
+                errorDiv.style.display = 'none';
+                return true;
+            }
+        }
+
+        function showSuccess(formId, message) {
+            const errorDiv = document.getElementById(formId + 'Errors');
+            const successDiv = document.getElementById(formId + 'Success');
+            
+            errorDiv.style.display = 'none';
+            successDiv.innerHTML = message;
+            successDiv.style.display = 'block';
+        }
+
+        // Form submission
+        document.querySelectorAll('.register-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formId = this.id.replace('Form', '');
+                const button = this.querySelector('.magic-button');
+                const btnText = button.querySelector('.btn-text');
+                const spinner = button.querySelector('.loading-spinner');
+
+                // Validate form
+                const errors = validateForm(this);
+                if (!showErrors(formId, errors)) {
+                    return;
+                }
+
+                // Show loading state
+                btnText.style.opacity = '0';
+                spinner.style.display = 'block';
+                button.style.pointerEvents = 'none';
+
+                // Simulate API call
+                setTimeout(() => {
+                    btnText.style.opacity = '1';
+                    spinner.style.display = 'none';
+                    button.style.pointerEvents = 'auto';
+                    
+                    showSuccess(formId, `Registration successful! Welcome to EduManage as a ${formId}.`);
+                    
+                    // Here you would typically submit to your Django backend
+                    console.log('Registration data for:', formId, new FormData(this));
+                    
+                    // Reset form after success
+                    setTimeout(() => {
+                        this.reset();
+                        document.getElementById(formId + 'Success').style.display = 'none';
+                    }, 3000);
+                }, 2000);
+            });
+        });
+
+        // Real-time password confirmation validation
+        document.querySelectorAll('input[name="confirm_password"]').forEach(input => {
+            input.addEventListener('input', function() {
+                const form = this.closest('form');
+                const password = form.querySelector('input[name="password"]').value;
+                const confirmPassword = this.value;
+                
+                if (confirmPassword && password !== confirmPassword) {
+                    this.style.borderColor = '#ff6b6b';
+                } else {
+                    this.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                }
+            });
+        });
+
+        // Input focus effects
+        document.querySelectorAll('.floating-input input, .floating-input select, .floating-input textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+            });
+        });
+    </script>
+</body>
+</html>
+
+{% endblock content %}
